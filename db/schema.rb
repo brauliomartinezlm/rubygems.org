@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_19_175448) do
+ActiveRecord::Schema.define(version: 2019_07_27_202214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2019_04_19_175448) do
     t.text "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.string "public_key"
+    t.string "external_id"
+    t.string "device_name"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_credentials_on_user_id"
   end
 
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
@@ -141,6 +151,7 @@ ActiveRecord::Schema.define(version: 2019_04_19_175448) do
     t.string "mfa_seed"
     t.integer "mfa_level", default: 0
     t.string "mfa_recovery_codes", default: [], array: true
+    t.string "current_challenge"
     t.index ["email"], name: "index_users_on_email"
     t.index ["handle"], name: "index_users_on_handle"
     t.index ["id", "confirmation_token"], name: "index_users_on_id_and_confirmation_token"
@@ -198,4 +209,5 @@ ActiveRecord::Schema.define(version: 2019_04_19_175448) do
     t.index ["user_id", "rubygem_id"], name: "index_web_hooks_on_user_id_and_rubygem_id"
   end
 
+  add_foreign_key "credentials", "users"
 end
