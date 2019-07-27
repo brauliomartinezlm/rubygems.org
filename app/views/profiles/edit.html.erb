@@ -106,6 +106,7 @@
     <p>
       <%= t '.mfa.disabled' %>
       <%= button_to t('.mfa.go_settings'), new_multifactor_auth_path, :method => 'get', :class => 'form__submit' %>
+      <%= button_to "Register WebAuthn Authenticator", new_webauthn_multifactor_auth_path, :method => 'get', :class => 'form__submit' %>
     </p>
   <% end %>
 </div>

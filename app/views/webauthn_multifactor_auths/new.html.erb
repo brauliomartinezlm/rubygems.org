@@ -1,0 +1,11 @@
+<% @title = "Enable a WebAuthn Authenticator" %>
+
+<div class="t-body l-overflow">
+  <%= form_tag webauthn_multifactor_auth_path, method: :post do %>
+    <div class="text_field">
+      <%= label_tag :devise_name, 'Devise Name', class: 'form__label' %>
+      <%= text_field_tag :devise_name, '', class: 'form__input' %>
+    </div>
+    <%= submit_tag "Add Authenticator", class: 'form__submit' %>
+  <% end %>
+</div>
